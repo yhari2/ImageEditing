@@ -11,7 +11,7 @@ import java.util.List;
  * By: Yasasvi Hari
  *
  * This class will be the first screen that users see. The goal of this screen is to allow users to configure the tools
- * that they would like to use. Users can also come back to reconfigure the tools using the ToolWindow.
+ * that they would like to use. If the user wants to return to this screen and reconfigure the tool
  */
 public class StartScreen implements Screen {
     // constants
