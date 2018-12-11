@@ -1,5 +1,6 @@
 package screens;
 
+import tools.CropTool;
 import tools.Tool;
 
 import javax.swing.*;
@@ -11,7 +12,8 @@ import java.util.List;
  * By: Yasasvi Hari
  *
  * This class will be the first screen that users see. The goal of this screen is to allow users to configure the tools
- * that they would like to use. If the user wants to return to this screen and reconfigure the tool
+ * that they would like to use. If the user wants to return to this screen and reconfigure the tool, the MainScreen can
+ * simply throw the ToolWindow which will facilitate this reconfiguration.
  */
 public class StartScreen implements Screen {
     // constants
@@ -23,33 +25,23 @@ public class StartScreen implements Screen {
 
     // GUI
     private JFrame frame;
-    private JPanel leftMiddle = new JPanel();
-    private JPanel rightMiddle = new JPanel();
 
-    private void next() {
+    private void onNext() {
         frame.dispose();
         MainScreen mainScreen = new MainScreen(selectedTools);
         mainScreen.draw();
     }
 
-    private void onLeftButtonClick() {
-
-    }
-
-    private void makeMiddleLeftPanel() {
-        leftMiddle.setLayout(new BoxLayout(leftMiddle, BoxLayout.Y_AXIS));
-
-        for(Tool tool : allTools) {
-            JButton button = new JButton(tool.getName());
-            button.addActionListener(e -> onLeftButtonClick());
-            leftMiddle.add(button);
-        }
-    }
-
     /**
      *
-     * Handles all GUI stuff.
+     * This method adds the tools to the list above. As they are implemented, I will add the tools here.
+     * There should also be no repeats here, to avoid confusion in the StartScreen.
      */
+    private void prepareTools() {
+        allTools.add(new CropTool());
+    }
+
+
     @Override
     public void draw() {
         frame = new JFrame();
@@ -67,10 +59,9 @@ public class StartScreen implements Screen {
         panel.add(topPanel, 0);
 
         // set up the middle panel
-        JPanel midPanel = new JPanel(new GridLayout(1, 2));
-        makeMiddleLeftPanel();
-        
-        frame.add(midPanel);
+        prepareTools();
+        ToolWindow toolWindow = new ToolWindow(allTools, selectedTools);
+        panel.add(toolWindow.getPanel(),1);
 
         // put the buttons on the bottom
         JPanel buttonPanel = new JPanel();
@@ -78,7 +69,7 @@ public class StartScreen implements Screen {
         JButton selectAllButton = new JButton("SELECT ALL");
         JButton nextButton = new JButton("Next");
         selectAllButton.addActionListener(e -> selectedTools = allTools);
-        nextButton.addActionListener(e -> next());
+        nextButton.addActionListener(e -> onNext());
         buttonPanel.add(selectAllButton);
         buttonPanel.add(nextButton);
         panel.add(buttonPanel, 2);
