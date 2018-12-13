@@ -62,10 +62,8 @@ class ToolWindow implements Window {
     }
 
     private void prepareRightPanel() {
-        leftPanel.setLayout(new GridLayout(2, 1));
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.X_AXIS));
         leftPanel.add(new JLabel("Selected Tools"), 0);
-        JScrollPane pane = new JScrollPane();
-        leftPanel.add(pane, 1);
     }
 
     private void onLeftPanelButtonClick(JButton button) {
@@ -100,14 +98,13 @@ class ToolWindow implements Window {
     public JPanel getPanel() {
         JPanel panel = new JPanel();
         panel.setSize(new Dimension(WIDTH, HEIGHT));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
-        // prepare
         prepareLeftPanel();
         prepareRightPanel();
 
-        // prepare the panels
-        panel.add(leftPanel);
-        panel.add(rightPanel);
+        panel.add(leftPanel, 0);
+        panel.add(rightPanel, 1);
 
         return panel;
     }
