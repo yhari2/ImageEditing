@@ -77,16 +77,16 @@ class ToolWindow implements Window {
         leftPanel.setLayout(new GridLayout(2, 1));
         leftPanel.add(new JLabel("Tools"), 0);
 
-        JScrollPane pane = new JScrollPane();
-        pane.setSize(new Dimension(WIDTH, HEIGHT));
+        JPanel panel = new JPanel();
+        panel.setSize(new Dimension(WIDTH, HEIGHT));
 
         for(Tool tool : tools) {
             JButton button = new JButton(tool.getName());
             button.addActionListener((e) -> onLeftPanelButtonClick(button));
-            pane.add(button);
+            panel.add(button);
         }
 
-        leftPanel.add(pane, 1);
+        leftPanel.add(panel, 1);
     }
 
     /**
