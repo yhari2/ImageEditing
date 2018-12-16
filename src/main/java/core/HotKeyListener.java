@@ -1,6 +1,5 @@
 package core;
 
-import screens.MainScreen;
 import tools.Tool;
 
 import java.awt.event.KeyEvent;
@@ -27,7 +26,7 @@ public class HotKeyListener implements KeyListener {
 
     public HotKeyListener(MainScreen mainScreen) {
         this.mainScreen = mainScreen;
-        this.keyToToolMap = mainScreen.getKeyToToolMap();
+        this.keyToToolMap = mainScreen.getHotkeyToolMap();
     }
 
     @Override
